@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import './App.css'
 import StudentList from './StudentList'
+import ImgUploadForm from './ImgUploadForm'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+const [selectedId, setSelectedId] = useState(null);
   return (
     <>
-     <StudentList />
+    <ImgUploadForm selectedId = {selectedId}  />
+     {/* <StudentList setSelectedId={setSelectedId} /> */}
+     
     </>
   )
 }

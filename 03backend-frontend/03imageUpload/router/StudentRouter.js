@@ -13,7 +13,10 @@ StudentRouter.get("/",async(req,res)=>{
     // let result = await student1.save();
     // console.log(result);
 
-    res.send("Hi I am student Router");
+    let students = await StudentModel.find();
+    console.log(students);
+
+    res.send({msg:"all students", data: students});
 })
 
 module.exports = StudentRouter;
