@@ -1,7 +1,17 @@
 const express = require("express");
 const StudentRouter = require("./router/StudentRouter");
 const  mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
+
+
+// enable CORS for all origins
+app.use(cors());
+
+// OR enable CORS only for frontend (recommended)
+// app.use(cors({
+//     origin: "http://localhost:5173"  // your React app
+// }));
 
 
 
