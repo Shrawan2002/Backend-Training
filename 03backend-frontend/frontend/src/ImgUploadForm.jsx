@@ -12,34 +12,34 @@ export default function ImgUploadForm({selectedId}){
     })
 
      // Fetch user by ID if editing
-     useEffect(()=>{
-        if(selectedId){
-            axios.get("http://localhost:8080/students" + selectedId)
-            .then((res)=>{ 
-                let u = res.data.student;
-                setUser(u);
+    //  useEffect(()=>{
+    //     if(selectedId){
+    //         axios.get("http://localhost:8080/students/" + selectedId)
+    //         .then((res)=>{ 
+    //             let u = res.data.student;
+    //             setUser(u);
 
-                //pre fill value
-                setFormData({
-                    name: u.name || "",
-                    email: u.email || "",
-                    password: u.password || "",
-                    image: null,
-                    oldImage: u.image || ""
-                })
-            }).catch((err)=>{
-                console.error(err)
-            })
-        }else{
-            // reset form when adding new
-            setFormData({
-                name: "",
-                email: "",
-                image: null,
-                 oldImage: "",
-            });
-        }
-     }, [selectedId])
+    //             //pre fill value
+    //             setFormData({
+    //                 name: u.name || "",
+    //                 email: u.email || "",
+    //                 password: u.password || "",
+    //                 image: null,
+    //                 oldImage: u.image || ""
+    //             })
+    //         }).catch((err)=>{
+    //             console.error(err)
+    //         })
+    //     }else{
+    //         // reset form when adding new
+    //         setFormData({
+    //             name: "",
+    //             email: "",
+    //             image: null,
+    //              oldImage: "",
+    //         });
+    //     }
+    //  }, [selectedId])
 
      
     const handleChange = (event)=>{
@@ -82,7 +82,7 @@ export default function ImgUploadForm({selectedId}){
 
             if(selectedId){
                 //update
-                res = await axios.put("http://localhost:8080/students", data,{
+                res = await axios.put("http://localhost:8080/students/" + selectedId, data,{
                     headers: { "Content-Type": "multipart/form-data" },
                 } )
             }else{
