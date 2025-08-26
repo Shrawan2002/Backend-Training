@@ -1,7 +1,8 @@
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function ImgUploadForm({selectedId}){
+    let [user, setUser] = useState(null)
     let [formData, setFormData] = useState({
         name: "Enter Name",
         email: "Enter Email",
@@ -10,6 +11,37 @@ export default function ImgUploadForm({selectedId}){
         oldImage: ""
     })
 
+     // Fetch user by ID if editing
+     useEffect(()=>{
+        if(selectedId){
+            axios.get("http://localhost:8080/students" + selectedId)
+            .then((res)=>{ 
+                let u = res.data.student;
+                setUser(u);
+
+                //pre fill value
+                setFormData({
+                    name: u.name || "",
+                    email: u.email || "",
+                    password: u.password || "",
+                    image: null,
+                    oldImage: u.image || ""
+                })
+            }).catch((err)=>{
+                console.error(err)
+            })
+        }else{
+            // reset form when adding new
+            setFormData({
+                name: "",
+                email: "",
+                image: null,
+                 oldImage: "",
+            });
+        }
+     }, [selectedId])
+
+     
     const handleChange = (event)=>{
         setFormData((data)=> {
             return {...data, [event.target.name]: event.target.value}
@@ -61,7 +93,7 @@ export default function ImgUploadForm({selectedId}){
             }
 
         alert(res.data.msg || "Success!");
-        
+
         }catch(err){
             console.error(err);
             alert("Operation failed!")
