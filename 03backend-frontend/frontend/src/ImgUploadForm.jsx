@@ -11,35 +11,35 @@ export default function ImgUploadForm({selectedId}){
         oldImage: ""
     })
 
-     // Fetch user by ID if editing
-    //  useEffect(()=>{
-    //     if(selectedId){
-    //         axios.get("http://localhost:8080/students/" + selectedId)
-    //         .then((res)=>{ 
-    //             let u = res.data.student;
-    //             setUser(u);
+     //Fetch user by ID if editing
+     useEffect(()=>{
+        if(selectedId){
+            axios.get("http://localhost:8080/students/" + selectedId)
+            .then((res)=>{ 
+                let u = res.data.student;
+                setUser(u);
 
-    //             //pre fill value
-    //             setFormData({
-    //                 name: u.name || "",
-    //                 email: u.email || "",
-    //                 password: u.password || "",
-    //                 image: null,
-    //                 oldImage: u.image || ""
-    //             })
-    //         }).catch((err)=>{
-    //             console.error(err)
-    //         })
-    //     }else{
-    //         // reset form when adding new
-    //         setFormData({
-    //             name: "",
-    //             email: "",
-    //             image: null,
-    //              oldImage: "",
-    //         });
-    //     }
-    //  }, [selectedId])
+                //pre fill value
+                setFormData({
+                    name: u.name || "",
+                    email: u.email || "",
+                    password: u.password || "",
+                    image: null,
+                    oldImage: u.image || ""
+                })
+            }).catch((err)=>{
+                console.error(err)
+            })
+        }else{
+            // reset form when adding new
+            setFormData({
+                name: "",
+                email: "",
+                image: null,
+                 oldImage: "",
+            });
+        }
+     }, [selectedId])
 
      
     const handleChange = (event)=>{
@@ -143,6 +143,16 @@ export default function ImgUploadForm({selectedId}){
                 className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                  />
                 </div>
+                  {/* Current Image Preview (only when updating) */}
+                  {selectedId && formData.oldImage && (
+                    <div>
+                      <p className="text-sm text-gray-600 mb-1">Current Image:</p>
+                      <img src={`http:localhost:8080/image/${formData.oldImage}`}
+                      alt="current" 
+                      className="w-32 h-32 object-cover rounded-lg border"
+                      />
+                    </div>
+                  )}
 
                 {/* file */}
                 <div>

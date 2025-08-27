@@ -8,7 +8,7 @@ const [selectedId, setSelectedId] = useState(null);
   return (
     <>
     <ImgUploadForm selectedId = {selectedId}  />
-     {/* <StudentList setSelectedId={setSelectedId} /> */}
+     <StudentList setSelectedId={setSelectedId} />
      
     </>
   )
