@@ -3,10 +3,15 @@ const StudentRouter = require("./router/StudentRouter");
 const  mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
+const path = require("path");
+
 
 
 // enable CORS for all origins
 app.use(cors());
+app.use(express.json());
+// app.use("/image", express.static(path.join(__dirname, "public/image")));
+app.use(express.static("public"));
 
 // OR enable CORS only for frontend (recommended)
 // app.use(cors({
